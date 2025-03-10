@@ -58,7 +58,7 @@ EventScript_PkmnCenterNurse_ReturnPkmn::
 	waitmessage
 	applymovement VAR_0x800B, Movement_PkmnCenterNurse_Bow
 	waitmovement 0
-	message gText_WeHopeToSeeYouAgain
+	goto EventScript_PkmnCenterNurse_PlayerTurn
 	return
 
 EventScript_PkmnCenterNurse_ReturnPkmn2::
@@ -66,7 +66,7 @@ EventScript_PkmnCenterNurse_ReturnPkmn2::
 	waitmessage
 	applymovement VAR_0x800B, Movement_PkmnCenterNurse_Bow
 	waitmovement 0
-	message gText_WeHopeToSeeYouAgain2
+	goto EventScript_PkmnCenterNurse_PlayerTurn
 	return
 
 EventScript_PkmnCenterNurse_PlayerWaitingInUnionRoom::
@@ -102,18 +102,25 @@ EventScript_PkmnCenterNurse_GoldCard::
 	waitmovement 0
 	msgbox gText_NoticesGoldCard, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, EventScript_PkmnCenterNurse_GoldCardHealPkmn
-	message gText_WeHopeToSeeYouAgain2
+	message gText_WeHopeToSeeYouAgain
 	return
 
 EventScript_PkmnCenterNurse_AskForUsual::
 	msgbox gText_YouWantTheUsual, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, EventScript_PkmnCenterNurse_GoldCardHealPkmn
-	message gText_WeHopeToSeeYouAgain2
+	message gText_WeHopeToSeeYouAgain
 	return
 
 EventScript_PkmnCenterNurse_GoldCardHealPkmn::
 	setvar VAR_0x8004, 1
 	goto EventScript_PkmnCenterNurse_HealPkmn
+	end
+
+EventScript_PkmnCenterNurse_PlayerTurn::
+	closemessage
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown
+	waitmovement 0
+	release
 	end
 
 Movement_PkmnCenterNurse_Bow:
