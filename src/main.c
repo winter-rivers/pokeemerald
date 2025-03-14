@@ -37,6 +37,8 @@ const u8 gGameLanguage = GAME_LANGUAGE; // English
 
 const char BuildDateTime[] = "2005 02 21 11:10";
 
+extern void CB2_FlashNotDetectedScreen(void);
+
 const IntrFunc gIntrTableTemplate[] =
 {
     VCountIntr, // V-count interrupt
@@ -116,7 +118,7 @@ void AgbMain()
     gSoftResetDisabled = FALSE;
 
     if (gFlashMemoryPresent != TRUE)
-        SetMainCallback2(NULL);
+        SetMainCallback2(CB2_FlashNotDetectedScreen);
 
     gLinkTransferringData = FALSE;
     sUnusedVar = 0xFC0;
