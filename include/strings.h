@@ -3035,4 +3035,7 @@ extern const u8 gText_MoveItemWhere[];
 extern const u8 gText_XsYAnd[];
 extern const u8 gText_XsYWereSwapped[];
 
+//Soot Sack
+extern const u8 gText_AshQty[];
+
 #endif // GUARD_STRINGS_H
