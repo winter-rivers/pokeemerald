@@ -62,13 +62,19 @@ void Task_TryUseSoftboiledOnPartyMon(u8 taskId)
 
     // Take away Softboiled user's health first (-1)
     PlaySE(SE_USE_ITEM);
-    PartyMenuModifyHP(taskId, userPartyId, -1, GetMonData(&gPlayerParty[userPartyId], MON_DATA_MAX_HP)/5, Task_SoftboiledRestoreHealth);
+    if (GetMonData(&gPlayerParty[userPartyId], MON_DATA_MAX_HP) <= 48)
+        PartyMenuModifyHP(taskId, userPartyId, -2, GetMonData(&gPlayerParty[userPartyId], MON_DATA_MAX_HP)/5, Task_SoftboiledRestoreHealth);
+    else
+        PartyMenuModifyHP(taskId, userPartyId, - (max(GetMonData(&gPlayerParty[userPartyId], MON_DATA_MAX_HP) / 24, 1)), GetMonData(&gPlayerParty[userPartyId], MON_DATA_MAX_HP)/5, Task_SoftboiledRestoreHealth);
 }
 
 static void Task_SoftboiledRestoreHealth(u8 taskId)
 {
     PlaySE(SE_USE_ITEM);
-    PartyMenuModifyHP(taskId, gPartyMenu.slotId2, 1, GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_MAX_HP)/5, Task_DisplayHPRestoredMessage);
+    if ((GetMonData(&gPlayerParty[gPartyMenu.slotId2], MON_DATA_MAX_HP)) > 48)
+        PartyMenuModifyHP(taskId, gPartyMenu.slotId2, max(GetMonData(&gPlayerParty[gPartyMenu.slotId2], MON_DATA_MAX_HP) / 24, 1), GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_MAX_HP)/5, Task_DisplayHPRestoredMessage);
+    else
+        PartyMenuModifyHP(taskId, gPartyMenu.slotId2, 2, GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_MAX_HP)/5, Task_DisplayHPRestoredMessage);
 }
 
 static void Task_DisplayHPRestoredMessage(u8 taskId)
